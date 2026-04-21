@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<!-- ULTIMATE ELEVEN - BETA VERSION -->
+<!-- Captain Tsubasa Football Strategy Game -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -7,9 +9,297 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#06080e">
-<title>Ultimate Eleven</title>
+<title>Ultimate Eleven - Football Strategy Game | Beta</title>
+<meta name="description" content="Ultimate Eleven - A Captain Tsubasa inspired football strategy game with 11 vs 11 gameplay">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=4">
+<style>
+/* CAREER MODE - inline to bypass cache */
+#s-career-clubs{background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(30,114,220,.08),transparent 60%),#06080e;overflow:hidden;}
+#s-career-hub{background:#06080e;}
+#s-career-season,#s-career-result{background:#06080e;}
+.cr-topbar{flex-shrink:0;display:flex!important;align-items:center;gap:10px;padding:10px 16px;background:linear-gradient(180deg,#0a1628,#071020);border-bottom:1px solid rgba(255,255,255,.07);}
+.cr-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,2.4vw,22px);letter-spacing:.12em;color:#f0c040;}
+.cr-sub{font-family:'Orbitron',sans-serif;font-size:7px;letter-spacing:.2em;color:#48586a;margin-left:2px;}
+.cr-topbar .back-btn{margin-left:auto;}
+.cr-clubs-scroll{flex:1;overflow-y:auto;padding:14px;}
+.cr-save-row{display:flex;gap:8px;margin-bottom:12px;}
+.cr-continue-btn{flex:1;padding:13px;background:rgba(240,192,64,.1);border:1.5px solid rgba(240,192,64,.35);border-radius:9px;color:#f0c040;font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,1.8vw,18px);letter-spacing:.12em;cursor:pointer;}
+.cr-newgame-btn{padding:13px 14px;background:rgba(220,32,32,.06);border:1px solid rgba(220,32,32,.22);border-radius:9px;color:rgba(220,32,32,.65);font-family:'Orbitron',sans-serif;font-size:7px;letter-spacing:.15em;cursor:pointer;}
+.cr-div-hdr{font-family:'Bebas Neue',sans-serif;font-size:clamp(13px,1.8vw,17px);letter-spacing:.1em;color:rgba(255,255,255,.25);padding:8px 0 6px;border-top:1px solid rgba(255,255,255,.06);margin-top:4px;}
+.cr-club-card{display:flex!important;align-items:center;gap:12px;padding:14px 16px;background:rgba(7,14,28,.94);border:1px solid rgba(255,255,255,.1);border-radius:9px;cursor:pointer;margin-bottom:9px;position:relative;min-height:64px;}
+.cr-club-card:hover{border-color:rgba(255,255,255,.22);background:rgba(15,25,50,.97);}
+.cr-club-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:9px 0 0 9px;background:transparent;transition:.15s;}
+.cr-club-card.cr-d1:hover::before{background:#f0c040;}
+.cr-club-card.cr-d2:hover::before{background:#44c8ff;}
+.cr-club-emoji{width:44px;height:44px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
+.cr-strip-emblem{width:40px;height:40px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
+.cr-fix-emoji{display:flex;align-items:center;justify-content:center;}
+.cr-club-info{flex:1;min-width:0;}
+.cr-club-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(15px,2vw,20px);letter-spacing:.07em;line-height:1;color:#eceff4;}
+.cr-club-meta{font-family:'Orbitron',sans-serif;font-size:6px;letter-spacing:.16em;color:#48586a;margin-top:2px;}
+.cr-club-star{font-family:'Orbitron',sans-serif;font-size:6px;letter-spacing:.1em;color:#f0c040;margin-top:3px;}
+.cr-club-ovr{font-family:'Orbitron',sans-serif;font-size:clamp(16px,2.2vw,24px);font-weight:900;flex-shrink:0;text-align:center;display:flex;flex-direction:column;align-items:center;}
+.cr-club-ovr span{font-size:5px;letter-spacing:.14em;color:#48586a;margin-top:1px;}
+.cr-club-ovr.cr-d1{color:#f0c040;}
+.cr-club-ovr.cr-d2{color:#44c8ff;}
+/* Hub */
+.cr-strip{flex-shrink:0;display:flex;align-items:center;gap:12px;padding:10px 14px;background:linear-gradient(135deg,rgba(30,114,220,.1),rgba(7,14,28,0));border-bottom:1px solid rgba(255,255,255,.06);}
+.cr-strip-emblem{width:40px;height:40px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);flex-shrink:0;}
+.cr-strip-info{flex:1;}
+.cr-strip-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,2.2vw,22px);letter-spacing:.08em;line-height:1;}
+.cr-strip-meta{font-family:'Orbitron',sans-serif;font-size:6px;letter-spacing:.16em;color:#48586a;margin-top:2px;}
+.cr-strip-right{text-align:right;flex-shrink:0;}
+.cr-strip-season{font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,1.8vw,18px);letter-spacing:.1em;color:#f0c040;}
+.cr-strip-md{font-family:'Orbitron',sans-serif;font-size:6px;letter-spacing:.13em;color:#48586a;}
+.cr-hub-body{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px;overflow:hidden;min-height:0;}
+.cr-col{display:flex;flex-direction:column;gap:10px;overflow:hidden;min-height:0;}
+.cr-panel{background:rgba(7,14,28,.94);border:1px solid rgba(255,255,255,.07);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;}
+.cr-panel-hdr{padding:7px 12px;background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.06);font-family:'Orbitron',sans-serif;font-size:7px;letter-spacing:.2em;color:#48586a;flex-shrink:0;display:flex;justify-content:space-between;}
+.cr-panel-hdr span{color:#f0c040;}
+.cr-panel-body{padding:8px 10px;flex:1;overflow-y:auto;min-height:0;}
+.cr-stat-lbl{font-family:'Orbitron',sans-serif;font-size:6px;letter-spacing:.16em;color:#48586a;margin-bottom:3px;}
+.cr-position{font-family:'Bebas Neue',sans-serif;font-size:clamp(26px,4vw,42px);letter-spacing:.06em;color:#f0c040;line-height:1;}
+.cr-pts-line{font-family:'Orbitron',sans-serif;font-size:6px;letter-spacing:.14em;color:#48586a;margin-top:3px;}
+/* Result / Season */
+.cr-res-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 50% 30%,rgba(30,114,220,.12),transparent 70%);}
+.cr-res-content{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:16px;padding:20px;}
+.cr-res-md{font-family:'Orbitron',sans-serif;font-size:7px;letter-spacing:.2em;color:#48586a;}
+.cr-res-box{display:flex;align-items:center;gap:20px;padding:16px 24px;background:rgba(7,14,28,.94);border:1px solid rgba(255,255,255,.08);border-radius:12px;}
+.cr-res-team{font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,2.5vw,24px);letter-spacing:.08em;min-width:120px;text-align:center;}
+.cr-res-score{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,6vw,60px);letter-spacing:.04em;min-width:120px;text-align:center;}
+.cr-res-score.win{color:#20c878;}.cr-res-score.loss{color:#dc2020;}.cr-res-score.draw{color:#f0c040;}
+.cr-res-outcome{font-family:'Bebas Neue',sans-serif;font-size:clamp(24px,4vw,40px);letter-spacing:.1em;}
+.cr-res-outcome.win{color:#20c878;}.cr-res-outcome.loss{color:#dc2020;}.cr-res-outcome.draw{color:#f0c040;}
+.cr-res-detail{font-family:'Orbitron',sans-serif;font-size:7px;letter-spacing:.14em;color:#48586a;}
+.cr-se-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(30px,5vw,52px);letter-spacing:.1em;color:#f0c040;}
+.cr-se-sub{font-family:'Orbitron',sans-serif;font-size:8px;letter-spacing:.2em;color:#48586a;}
+.cr-season-body{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;}
+.cr-next-season{padding:clamp(11px,1.7vh,15px);border-radius:8px;background:linear-gradient(135deg,#f0c040,#7a5a08);border:none;color:#04060c;font-family:'Bebas Neue',sans-serif;font-size:clamp(15px,2vw,20px);letter-spacing:.14em;cursor:pointer;width:100%;}
+/* Table rows */
+.cr-trow{display:grid;grid-template-columns:24px 1fr 28px 28px 28px 28px 36px 36px;align-items:center;padding:5px 8px;border-bottom:1px solid rgba(255,255,255,.04);font-family:'Rajdhani',sans-serif;font-weight:600;font-size:clamp(11px,1.3vw,13px);gap:2px;}
+.cr-thdr{font-family:'Orbitron',sans-serif;font-size:6px;letter-spacing:.12em;color:#48586a;padding:4px 8px;background:rgba(255,255,255,.02);position:sticky;top:0;}
+.cr-me{color:#f0c040;background:rgba(240,192,64,.05);}
+.cr-trow span{text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.cr-trow .cr-tname{text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.cr-tpos{color:#48586a;font-family:'Orbitron',sans-serif;font-size:9px;}
+.cr-tpts{color:#eceff4;font-weight:700;}
+.cr-pos{color:#20c878;}
+.cr-neg{color:#dc2020;}
+.cr-rline{height:1px;margin:2px 0;}
+.cr-rline-rel{background:rgba(220,32,32,.3);}
+.cr-rline-pro{background:rgba(32,200,120,.3);}
+/* Fixture */
+.cr-fixture{display:flex;align-items:center;justify-content:center;gap:14px;padding:10px 12px;}
+.cr-fix-team{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;}
+.cr-fix-emblem{font-size:28px;}
+.cr-fix-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(12px,1.6vw,16px);letter-spacing:.06em;text-align:center;}
+.cr-fix-ovr{font-family:'Orbitron',sans-serif;font-size:6px;letter-spacing:.12em;color:#48586a;}
+.cr-fix-vs{font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,2vw,18px);letter-spacing:.1em;color:#f0c040;flex-shrink:0;}
+.cr-play-btn{display:block;width:calc(100% - 24px);margin:0 12px 10px;padding:10px;background:linear-gradient(135deg,rgba(240,192,64,.15),rgba(240,192,64,.05));border:1.5px solid rgba(240,192,64,.4);border-radius:8px;color:#f0c040;font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,1.8vw,18px);letter-spacing:.14em;cursor:pointer;}
+.cr-play-btn:hover{background:linear-gradient(135deg,rgba(240,192,64,.25),rgba(240,192,64,.1));}
+/* Recent results */
+.cr-rrow{display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);font-family:'Rajdhani',sans-serif;font-weight:600;font-size:clamp(10px,1.3vw,13px);}
+.cr-rrow-badge{width:28px;text-align:center;font-size:10px;font-family:'Orbitron',sans-serif;font-weight:700;flex-shrink:0;}
+.cr-rrow-badge.win{color:#20c878;}.cr-rrow-badge.loss{color:#dc2020;}.cr-rrow-badge.draw{color:#f0c040;}
+.cr-rrow-info{flex:1;color:#48586a;font-size:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.cr-rrow-score{font-family:'Orbitron',sans-serif;font-size:9px;color:#eceff4;}
+/* Stats */
+.cr-stat-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.cr-stat-key{font-family:'Orbitron',sans-serif;font-size:6px;letter-spacing:.14em;color:#48586a;}
+.cr-stat-val{font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,1.8vw,18px);color:#eceff4;}
+/* Stats grid */
+.cr-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.cr-stat{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:6px;padding:7px 10px;display:flex;flex-direction:column;gap:2px;}
+.cr-stat span{font-family:'Orbitron',sans-serif;font-size:6px;letter-spacing:.14em;color:#48586a;}
+.cr-stat strong{font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,2.5vw,26px);color:#eceff4;line-height:1;}
+/* Fixture inner */
+.cr-fix-inner{padding:8px 12px 0;}
+.cr-fix-label{font-family:'Orbitron',sans-serif;font-size:6px;letter-spacing:.2em;color:#48586a;margin-bottom:6px;}
+.cr-fix-teams{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.cr-fix-team{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.cr-fix-emoji{font-size:28px;}
+.cr-fix-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(12px,1.6vw,16px);letter-spacing:.06em;text-align:center;color:#eceff4;}
+.cr-fix-ovr{font-family:'Orbitron',sans-serif;font-size:6px;letter-spacing:.12em;color:#48586a;}
+.cr-fix-vs{font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,2vw,20px);letter-spacing:.1em;color:#f0c040;flex-shrink:0;}
+.cr-bye{font-family:'Orbitron',sans-serif;font-size:8px;letter-spacing:.2em;color:#48586a;padding:16px;text-align:center;}
+.cr-empty{font-family:'Orbitron',sans-serif;font-size:7px;letter-spacing:.14em;color:#48586a;padding:10px 0;}
+/* Recent results rows */
+.cr-result-row{display:flex;align-items:center;gap:6px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-family:'Rajdhani',sans-serif;font-weight:600;font-size:clamp(10px,1.3vw,13px);}
+.cr-rmd{font-family:'Orbitron',sans-serif;font-size:7px;color:#48586a;flex-shrink:0;width:28px;}
+.cr-rhome{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.cr-rscore{font-family:'Orbitron',sans-serif;font-size:9px;flex-shrink:0;padding:2px 6px;border-radius:3px;}
+.cr-rscore.win{color:#20c878;background:rgba(32,200,120,.1);}
+.cr-rscore.loss{color:#dc2020;background:rgba(220,32,32,.1);}
+.cr-rscore.draw{color:#f0c040;background:rgba(240,192,64,.1);}
+.cr-raway{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right;color:#48586a;}
+/* Action bar */
+.cr-action-bar{flex-shrink:0;display:flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(4,6,12,.98);border-bottom:1px solid rgba(255,255,255,.06);}
+.cr-action-btn{padding:8px 16px;border-radius:6px;font-family:'Bebas Neue',sans-serif;font-size:clamp(13px,1.6vw,17px);letter-spacing:.1em;cursor:pointer;border:1.5px solid;transition:.15s;flex-shrink:0;}
+.cr-play{background:rgba(240,192,64,.12);border-color:rgba(240,192,64,.5);color:#f0c040;}
+.cr-play:hover{background:rgba(240,192,64,.22);}
+.cr-sim{background:rgba(30,114,220,.1);border-color:rgba(30,114,220,.4);color:#44c8ff;}
+.cr-sim:hover{background:rgba(30,114,220,.2);}
+.cr-simall{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.12);color:#48586a;}
+.cr-simall:hover{background:rgba(255,255,255,.08);color:#eceff4;}
+.cr-budget-display{margin-left:auto;text-align:right;}
+.cr-budget-lbl{font-family:'Orbitron',sans-serif;font-size:5px;letter-spacing:.2em;color:#48586a;}
+.cr-budget-val{font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,1.8vw,20px);letter-spacing:.06em;color:#20c878;}
+.cr-mgmt-panel{flex-shrink:0;}
+.cr-mgmt-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:8px;}
+.cr-mgmt-btn{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 6px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:7px;cursor:pointer;transition:.15s;color:#eceff4;}
+.cr-mgmt-btn:hover{background:rgba(255,255,255,.07);border-color:rgba(240,192,64,.25);}
+.cr-mgmt-icon{font-size:18px;}
+.cr-mgmt-lbl{font-family:'Orbitron',sans-serif;font-size:6px;letter-spacing:.15em;color:#48586a;}
+.cr-mgmt-btn:hover .cr-mgmt-lbl{color:#f0c040;}
+/* Squad screen */
+#s-career-squad{background:#06080e;overflow:hidden;}
+.cr-squad-topbar{flex-shrink:0;display:flex;align-items:center;gap:10px;padding:8px 14px;background:linear-gradient(180deg,#0a1628,#071020);border-bottom:1px solid rgba(255,255,255,.07);}
+.cr-squad-title{flex:1;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,2vw,22px);letter-spacing:.12em;color:#f0c040;}
+.cr-squad-subtitle{display:block;font-family:'Orbitron',sans-serif;font-size:6px;letter-spacing:.2em;color:#48586a;margin-top:1px;}
+.cr-save-btn{padding:6px 14px;background:rgba(32,200,120,.1);border:1.5px solid rgba(32,200,120,.4);border-radius:6px;color:#20c878;font-family:'Bebas Neue',sans-serif;font-size:clamp(12px,1.4vw,16px);letter-spacing:.1em;cursor:pointer;}
+.cr-save-btn:hover{background:rgba(32,200,120,.2);}
+.cr-squad-body{flex:1;display:grid;grid-template-columns:1fr 1.1fr;gap:0;overflow:hidden;min-height:0;}
+.cr-squad-left{display:flex;flex-direction:column;border-right:1px solid rgba(255,255,255,.06);overflow:hidden;}
+.cr-squad-formation-bar{display:flex;align-items:center;gap:8px;padding:6px 12px;background:rgba(255,255,255,.02);border-bottom:1px solid rgba(255,255,255,.05);flex-shrink:0;}
+.cr-fml{font-family:'Orbitron',sans-serif;font-size:6px;letter-spacing:.18em;color:#48586a;}
+.cr-fsel{background:rgba(7,14,28,.9);border:1px solid rgba(255,255,255,.12);border-radius:4px;color:#f0c040;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:.1em;padding:3px 8px;cursor:pointer;}
+.cr-pitch{flex:1;position:relative;background:linear-gradient(180deg,#0a2410 0%,#0d3318 40%,#0a2410 100%);overflow:hidden;}
+.cr-pitch::before{content:'';position:absolute;inset:6px;border:1px solid rgba(255,255,255,.08);border-radius:3px;}
+.cr-pitch::after{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:60px;height:60px;border:1px solid rgba(255,255,255,.08);border-radius:50%;}
+.cr-pitch-slot{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;transition:.15s;}
+.cr-pitch-slot:hover .cr-pslot-badge{border-color:rgba(240,192,64,.6);box-shadow:0 0 8px rgba(240,192,64,.3);}
+.cr-pslot-badge{width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,.2);overflow:hidden;background:#111;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.cr-pslot-badge.injured{border-color:#dc2020;opacity:.7;}
+.cr-pslot-badge.suspended{border-color:#f0c040;opacity:.7;}
+.cr-pslot-badge.selected{border-color:#f0c040;box-shadow:0 0 10px rgba(240,192,64,.5);}
+.cr-pslot-name{font-family:'Bebas Neue',sans-serif;font-size:9px;letter-spacing:.05em;color:#eceff4;text-shadow:0 1px 3px rgba(0,0,0,.8);white-space:nowrap;max-width:48px;overflow:hidden;text-overflow:ellipsis;}
+.cr-pslot-ovr{font-family:'Orbitron',sans-serif;font-size:6px;color:#f0c040;text-shadow:0 1px 3px rgba(0,0,0,.9);}
+/* Player list */
+.cr-squad-right{display:flex;flex-direction:column;overflow:hidden;}
+.cr-squad-tabs{display:flex;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.06);}
+.cr-stab{flex:1;padding:7px;background:transparent;border:none;color:#48586a;font-family:'Orbitron',sans-serif;font-size:7px;letter-spacing:.12em;cursor:pointer;border-bottom:2px solid transparent;transition:.15s;}
+.cr-stab.active{color:#f0c040;border-bottom-color:#f0c040;}
+.cr-squad-list{flex:1;overflow-y:auto;padding:4px;}
+/* Player card */
+.cr-pcard{display:grid;grid-template-columns:38px 1fr auto;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;cursor:pointer;border:1px solid transparent;margin-bottom:3px;transition:.15s;}
+.cr-pcard:hover{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.08);}
+.cr-pcard.selected{background:rgba(240,192,64,.07);border-color:rgba(240,192,64,.25);}
+.cr-pcard.starter{border-left:2px solid rgba(30,114,220,.5);}
+.cr-pcard.injured{opacity:.6;}
+.cr-pcard-portrait{width:38px;height:38px;border-radius:6px;overflow:hidden;flex-shrink:0;position:relative;}
+.cr-pcard-info{min-width:0;}
+.cr-pcard-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(13px,1.6vw,16px);letter-spacing:.05em;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cr-pcard-meta{font-family:'Orbitron',sans-serif;font-size:6px;letter-spacing:.1em;color:#48586a;margin-top:2px;display:flex;gap:6px;align-items:center;}
+.cr-pcard-morale{font-size:9px;}
+.cr-pcard-status{font-family:'Orbitron',sans-serif;font-size:6px;padding:2px 5px;border-radius:3px;flex-shrink:0;}
+.cr-status-ok{color:#20c878;background:rgba(32,200,120,.1);}
+.cr-status-inj{color:#dc2020;background:rgba(220,32,32,.1);}
+.cr-status-sus{color:#f0c040;background:rgba(240,192,64,.1);}
+.cr-pcard-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;}
+.cr-pcard-ovr{font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;color:#eceff4;}
+.cr-pcard-pos{font-family:'Orbitron',sans-serif;font-size:6px;color:#48586a;}
+/* Pause button */
+.pause-btn{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;color:#eceff4;font-size:16px;width:32px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;z-index:10;}
+.pause-btn:hover{background:rgba(240,192,64,.15);border-color:rgba(240,192,64,.4);color:#f0c040;}
+.pause-btn.paused{color:#f0c040;border-color:rgba(240,192,64,.5);background:rgba(240,192,64,.1);}
+/* Foul / offside event banner */
+.event-banner{position:absolute;top:18%;left:50%;transform:translateX(-50%);background:rgba(220,32,32,.92);border:1px solid rgba(255,100,100,.4);border-radius:8px;padding:8px 20px;font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,2.5vw,24px);letter-spacing:.15em;color:#fff;z-index:120;pointer-events:none;opacity:0;transition:opacity .3s;}
+.event-banner.show{opacity:1;}
+.event-banner.offside{background:rgba(240,192,64,.92);border-color:rgba(255,220,100,.4);color:#1a1000;}
+.event-banner.foul{background:rgba(220,32,32,.92);}
+/* Halftime subs */
+.ht-sub-panel{width:100%;max-width:640px;margin:0 auto;padding:0 16px;}
+.ht-sub-title{font-family:'Orbitron',sans-serif;font-size:8px;letter-spacing:.2em;color:#48586a;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.ht-sub-title span{color:#f0c040;}
+.ht-sub-body{display:flex;gap:8px;align-items:flex-start;}
+.ht-sub-col{flex:1;}
+.ht-sub-lbl{font-family:'Orbitron',sans-serif;font-size:6px;letter-spacing:.18em;color:#48586a;margin-bottom:4px;text-align:center;}
+.ht-sub-list{display:flex;flex-direction:column;gap:3px;max-height:120px;overflow-y:auto;}
+.ht-sub-arrow{font-size:20px;color:#48586a;padding-top:20px;flex-shrink:0;}
+.ht-sub-row{display:flex;align-items:center;gap:6px;padding:5px 8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:5px;cursor:pointer;transition:.15s;font-family:'Rajdhani',sans-serif;font-weight:600;font-size:clamp(11px,1.4vw,13px);}
+.ht-sub-row:hover{background:rgba(240,192,64,.08);border-color:rgba(240,192,64,.25);}
+.ht-sub-row.selected{background:rgba(240,192,64,.12);border-color:rgba(240,192,64,.5);color:#f0c040;}
+.ht-sub-row.out{background:rgba(220,32,32,.08);border-color:rgba(220,32,32,.25);color:#dc2020;text-decoration:line-through;}
+.ht-sub-pos{font-family:'Orbitron',sans-serif;font-size:7px;color:#48586a;width:24px;flex-shrink:0;}
+.ht-sub-spirit{font-size:9px;margin-left:auto;}
+
+/* ==================== NEW HOME MENU (scoped to #s-home) ==================== */
+#s-home{overflow:hidden;color:#fff;font-family:"Arial Black","Helvetica Neue",sans-serif;
+  background-image:url('assets/wallpaper/mainmenu.png');
+  background-size:cover;background-position:center;background-color:#05070d;}
+/* atmospheric overlays on top of the PNG */
+#s-home::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(0,234,255,.18), transparent 60%),
+    radial-gradient(ellipse at 80% 70%, rgba(255,46,77,.18), transparent 55%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.04) 0 2px, transparent 2px 80px),
+    repeating-linear-gradient(0deg,  rgba(255,255,255,.04) 0 2px, transparent 2px 80px);
+  mix-blend-mode:screen;}
+#s-home .hm-streak{position:absolute;width:140%;height:60px;filter:blur(6px);transform:rotate(-12deg);pointer-events:none;z-index:1;animation:hm-slide 8s linear infinite;}
+#s-home .hm-streak.s1{top:25%;background:linear-gradient(90deg,transparent,rgba(0,234,255,.30),transparent);}
+#s-home .hm-streak.s2{top:65%;background:linear-gradient(90deg,transparent,rgba(255,46,77,.30),transparent);animation-duration:11s;animation-delay:-3s;}
+@keyframes hm-slide{0%{transform:translateX(-30%) rotate(-12deg);}100%{transform:translateX(30%) rotate(-12deg);}}
+#s-home .hm-ball{position:absolute;left:38%;top:55%;width:260px;height:260px;border-radius:50%;z-index:2;opacity:.18;pointer-events:none;
+  background:radial-gradient(circle at 30% 30%, #fff 0%, #cfd8e3 40%, #3a4a66 80%);
+  box-shadow:0 0 60px rgba(0,234,255,.35), inset -20px -30px 50px rgba(0,0,0,.6);
+  animation:hm-spin 18s linear infinite;}
+@keyframes hm-spin{to{transform:rotate(360deg);}}
+
+/* LEFT title block */
+#s-home .hm-left{position:absolute;left:0;top:0;bottom:0;width:55%;display:flex;flex-direction:column;justify-content:center;padding:6vh 5vw;z-index:3;}
+#s-home .hm-title{font-size:clamp(48px,7vw,112px);line-height:.9;font-style:italic;font-weight:900;letter-spacing:-2px;text-transform:uppercase;
+  background:linear-gradient(180deg,#fff 0%, #ffcc33 55%, #ff8a00 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 6px 0 rgba(0,0,0,.6)) drop-shadow(0 0 22px rgba(255,204,51,.35));
+  transform:skewX(-6deg);}
+#s-home .hm-title .big{display:block;font-size:1.25em;}
+#s-home .hm-press{margin-top:50px;font-size:12px;letter-spacing:6px;color:#fff;opacity:.6;animation:hm-blink 1.3s infinite;}
+@keyframes hm-blink{50%{opacity:.15;}}
+
+/* RIGHT menu */
+#s-home .hm-menu{position:absolute;right:0;top:0;bottom:0;width:40%;display:flex;flex-direction:column;justify-content:center;gap:14px;padding:4vh 3vw 4vh 0;z-index:5;perspective:1200px;}
+#s-home .hm-btn{position:relative;height:64px;cursor:pointer;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.2,.9,.3,1.2);will-change:transform;background:transparent;border:none;padding:0;}
+#s-home .hm-btn.locked{cursor:default;opacity:.55;}
+#s-home .hm-face{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 28px 0 44px;backface-visibility:hidden;
+  clip-path:polygon(6% 0, 100% 0, 100% 100%, 0 100%);
+  border:2px solid rgba(255,255,255,.18);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.25), 0 10px 30px rgba(0,0,0,.55);}
+#s-home .hm-face.front{background:linear-gradient(100deg, rgba(10,15,26,.92) 0%, rgba(18,28,52,.92) 50%, rgba(36,12,24,.92) 100%);}
+#s-home .hm-face.back{transform:rotateX(180deg);background:linear-gradient(100deg, #ff2e4d 0%, #ff6a2a 60%, #ffcc33 100%);color:#0a0f1a;}
+#s-home .hm-btn:not(.locked):hover{transform:translateX(-18px) rotateX(180deg);}
+#s-home .hm-btn:not(.locked):hover .hm-face.front{box-shadow:none;}
+#s-home .hm-btn .hm-label{font-size:22px;font-weight:900;font-style:italic;letter-spacing:3px;text-transform:uppercase;text-shadow:0 2px 0 rgba(0,0,0,.6);white-space:nowrap;}
+#s-home .hm-face.back .hm-label{text-shadow:none;color:#0a0f1a;}
+#s-home .hm-btn .hm-num{font-size:13px;letter-spacing:3px;color:#00eaff;font-weight:800;}
+#s-home .hm-face.back .hm-num{color:#0a0f1a;}
+#s-home .hm-accent{position:absolute;left:0;top:0;bottom:0;width:10px;background:linear-gradient(180deg,#00eaff,#ff2e4d);clip-path:polygon(0 0,100% 0,60% 100%,0 100%);}
+#s-home .hm-face.back .hm-accent{background:linear-gradient(180deg,#0a0f1a,#3a0010);}
+#s-home .hm-dot{width:10px;height:10px;border-radius:50%;background:#ffcc33;box-shadow:0 0 12px #ffcc33, 0 0 2px #fff;margin-right:14px;}
+#s-home .hm-face.back .hm-dot{background:#0a0f1a;box-shadow:none;}
+#s-home .hm-row{display:flex;align-items:center;}
+#s-home .hm-btn.locked .hm-num{color:#8a94a6;}
+#s-home .hm-btn.locked .hm-label{color:#8a94a6;}
+
+/* meta + hint */
+#s-home .hm-meta{position:absolute;top:22px;right:28px;z-index:9;display:flex;gap:14px;align-items:center;font-size:11px;letter-spacing:3px;color:#cfd8e3;}
+#s-home .hm-pill{padding:6px 12px;border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.35);backdrop-filter:blur(6px);}
+#s-home .hm-pill.live{color:#ff2e4d;border-color:rgba(255,46,77,.6);}
+#s-home .hm-pill.live::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#ff2e4d;margin-right:6px;animation:hm-blink 1s infinite;}
+#s-home .hm-hint{position:absolute;bottom:20px;left:0;right:0;z-index:9;display:flex;justify-content:center;gap:30px;font-size:11px;letter-spacing:3px;color:#8a94a6;}
+#s-home .hm-hint b{color:#fff;margin-right:6px;}
+
+@media (max-width:900px){
+  #s-home .hm-left{width:55%;padding:4vh 4vw;}
+  #s-home .hm-menu{width:48%;gap:8px;padding:2vh 2vw 2vh 0;}
+  #s-home .hm-btn{height:44px;}
+  #s-home .hm-face{padding:0 16px 0 34px;}
+  #s-home .hm-btn .hm-label{font-size:13px;letter-spacing:1.5px;}
+  #s-home .hm-btn .hm-num{font-size:10px;letter-spacing:2px;}
+  #s-home .hm-dot{width:7px;height:7px;margin-right:8px;}
+  #s-home .hm-hint{gap:18px;font-size:9px;letter-spacing:2px;}
+}
+</style>
 </head>
 <body>
 
@@ -29,17 +319,98 @@
 
 <!-- HOME MENU -->
 <div id="s-home" class="screen">
-  <div class="logo">ULTIMATE<br>ELEVEN</div>
-  <div class="logo-sub">FOOTBALL STRATEGY · 11 VS 11</div>
-  <div class="menu-cards">
-    <div class="mc on" onclick="showSc('s-ts')"><div class="mc-icon">⚽</div><div class="mc-lbl">FRIENDLY</div></div>
-    <div class="mc off" onclick="cs()"><div class="mc-soon">SOON</div><div class="mc-icon">🏆</div><div class="mc-lbl">TOURNAMENT</div></div>
-    <div class="mc off" onclick="cs()"><div class="mc-soon">SOON</div><div class="mc-icon">📋</div><div class="mc-lbl">LEAGUE</div></div>
-    <div class="mc off" onclick="cs()"><div class="mc-soon">SOON</div><div class="mc-icon">⭐</div><div class="mc-lbl">CAREER</div></div>
-    <div class="mc off" onclick="cs()"><div class="mc-soon">SOON</div><div class="mc-icon">🛠</div><div class="mc-lbl">CREATE TEAM</div></div>
-    <div class="mc off" onclick="cs()"><div class="mc-soon">SOON</div><div class="mc-icon">⚙️</div><div class="mc-lbl">SETTINGS</div></div>
+
+  <!-- atmosphere layers on top of mainmenu.png -->
+  <div class="hm-streak s1"></div>
+  <div class="hm-streak s2"></div>
+  <div class="hm-ball"></div>
+
+  <!-- LEFT: title -->
+  <div class="hm-left">
+    <h1 class="hm-title">Ultimate<span class="big">Eleven</span></h1>
+    <div class="hm-press">▼ SELECT A MODE</div>
   </div>
-  <div class="home-hint">SELECT A MODE TO BEGIN</div>
+
+  <!-- RIGHT: flipping menu -->
+  <nav class="hm-menu">
+    <button class="hm-btn" onclick="showSc('s-ts')">
+      <div class="hm-face front">
+        <div class="hm-row"><span class="hm-accent"></span><span class="hm-dot"></span><span class="hm-label">Friendly Match</span></div>
+        <span class="hm-num">01</span>
+      </div>
+      <div class="hm-face back">
+        <div class="hm-row"><span class="hm-accent"></span><span class="hm-dot"></span><span class="hm-label">▶ Kick Off</span></div>
+        <span class="hm-num">01</span>
+      </div>
+    </button>
+
+    <button class="hm-btn locked" onclick="cs()">
+      <div class="hm-face front">
+        <div class="hm-row"><span class="hm-accent"></span><span class="hm-dot"></span><span class="hm-label">Tournament</span></div>
+        <span class="hm-num">02</span>
+      </div>
+      <div class="hm-face back">
+        <div class="hm-row"><span class="hm-accent"></span><span class="hm-dot"></span><span class="hm-label">Coming Soon</span></div>
+        <span class="hm-num">02</span>
+      </div>
+    </button>
+
+    <button class="hm-btn" onclick="showSc('s-career-clubs')">
+      <div class="hm-face front">
+        <div class="hm-row"><span class="hm-accent"></span><span class="hm-dot"></span><span class="hm-label">Master League</span></div>
+        <span class="hm-num">03</span>
+      </div>
+      <div class="hm-face back">
+        <div class="hm-row"><span class="hm-accent"></span><span class="hm-dot"></span><span class="hm-label">▶ Your Legend</span></div>
+        <span class="hm-num">03</span>
+      </div>
+    </button>
+
+    <button class="hm-btn locked" onclick="cs()">
+      <div class="hm-face front">
+        <div class="hm-row"><span class="hm-accent"></span><span class="hm-dot"></span><span class="hm-label">Career</span></div>
+        <span class="hm-num">04</span>
+      </div>
+      <div class="hm-face back">
+        <div class="hm-row"><span class="hm-accent"></span><span class="hm-dot"></span><span class="hm-label">Coming Soon</span></div>
+        <span class="hm-num">04</span>
+      </div>
+    </button>
+
+    <button class="hm-btn locked" onclick="cs()">
+      <div class="hm-face front">
+        <div class="hm-row"><span class="hm-accent"></span><span class="hm-dot"></span><span class="hm-label">Create Team</span></div>
+        <span class="hm-num">05</span>
+      </div>
+      <div class="hm-face back">
+        <div class="hm-row"><span class="hm-accent"></span><span class="hm-dot"></span><span class="hm-label">Coming Soon</span></div>
+        <span class="hm-num">05</span>
+      </div>
+    </button>
+
+    <button class="hm-btn locked" onclick="cs()">
+      <div class="hm-face front">
+        <div class="hm-row"><span class="hm-accent"></span><span class="hm-dot"></span><span class="hm-label">Settings</span></div>
+        <span class="hm-num">06</span>
+      </div>
+      <div class="hm-face back">
+        <div class="hm-row"><span class="hm-accent"></span><span class="hm-dot"></span><span class="hm-label">Coming Soon</span></div>
+        <span class="hm-num">06</span>
+      </div>
+    </button>
+  </nav>
+
+  <div class="hm-hint">
+    <span><b>↑↓</b> NAVIGATE</span>
+    <span><b>ENTER</b> SELECT</span>
+    <span><b>ESC</b> BACK</span>
+  </div>
+
+  <!-- Background music -->
+  <audio id="bgMusic" loop>
+    <source src="assets/audio/menu.mp3" type="audio/mpeg">
+  </audio>
+
 </div>
 
 <div id="s-ts" class="screen">
@@ -50,10 +421,12 @@
       <div class="ts-picker">
         <button class="ts-nav left" onclick="cycleTeam('home',-1)">◀</button>
         <div class="ts-sel-strip big" id="h-sel-strip">
-          <div class="ts-shield" style="--sc:var(--red)"><div class="ts-shield-flag" id="hflag">?</div></div>
+          <div class="ts-shield" style="--sc:var(--red)">
+            <div class="ts-shield-flag" id="hflag">?</div>
+          </div>
           <div class="ts-sel-name-lbl" id="hname" style="color:var(--red)">SELECT</div>
           <div class="ts-sel-hint">HOME · YOU</div>
-          <div class="ts-subhint" id="hsubhint">Use arrows to browse teams</div>
+          <div class="ts-subhint" id="hsubhint"></div>
         </div>
         <button class="ts-nav right" onclick="cycleTeam('home',1)">▶</button>
       </div>
@@ -68,10 +441,12 @@
       <div class="ts-picker">
         <button class="ts-nav left" onclick="cycleTeam('away',-1)">◀</button>
         <div class="ts-sel-strip big" id="a-sel-strip">
-          <div class="ts-shield"><div class="ts-shield-flag" id="aflag">?</div></div>
+          <div class="ts-shield">
+            <div class="ts-shield-flag" id="aflag">?</div>
+          </div>
           <div class="ts-sel-name-lbl" id="aname" style="color:var(--blue)">SELECT</div>
           <div class="ts-sel-hint">AWAY · CPU</div>
-          <div class="ts-subhint" id="asubhint">Same team not allowed</div>
+          <div class="ts-subhint" id="asubhint"></div>
         </div>
         <button class="ts-nav right" onclick="cycleTeam('away',1)">▶</button>
       </div>
@@ -107,11 +482,8 @@
         </button>
       </div>
 
-      <!-- Selected player info -->
+      <!-- Selected player info — compact, no portrait -->
       <div class="tm-section tm-player-info-section" id="playerInfoSection">
-        <div class="tm-player-face-wrap">
-          <div class="tm-player-face" id="playerFaceImg"></div>
-        </div>
         <div class="tm-player-details">
           <div class="tm-player-slot-lbl" id="playerSlotLbl">ST · ATT</div>
           <div class="tm-player-name-big" id="playerNameBig">Select a player</div>
@@ -175,6 +547,8 @@
       <div class="hhalf" id="hhalf">FIRST HALF</div>
       <div class="posstrip"><div class="posstrip-h" id="posstrip-h" style="width:50%"></div><div class="posstrip-a"></div></div>
     </div>
+    <!-- PAUSE -->
+    <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸</button>
     <!-- AWAY team (right): score · name · flag (row-reverse) -->
     <div class="hteam away">
       <div class="hflag-circle" id="a-flag-hud">🏳</div>
@@ -190,6 +564,12 @@
     <button class="shot-btn" id="fieldShotBtn" onclick="manualShot()">SHOT</button>
     <button class="shot-btn press-btn" id="pressBtn" onclick="togglePress()" style="display:none">PRESS</button>
     <div id="looming-alert"></div>
+    <div id="event-banner" class="event-banner"></div>
+    <div id="pause-overlay" style="display:none;position:absolute;inset:0;background:rgba(0,0,0,.82);z-index:300;flex-direction:column;align-items:center;justify-content:center;gap:16px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,6vw,56px);letter-spacing:.15em;color:#f0c040;">PAUSED</div>
+      <button onclick="togglePause()" style="padding:12px 32px;background:rgba(240,192,64,.15);border:1.5px solid rgba(240,192,64,.5);border-radius:8px;color:#f0c040;font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,2vw,20px);letter-spacing:.12em;cursor:pointer;">▶ RESUME</button>
+      <button onclick="if(G.paused)togglePause();showSc('s-home');" style="padding:10px 28px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#48586a;font-family:'Bebas Neue',sans-serif;font-size:clamp(13px,1.6vw,16px);letter-spacing:.12em;cursor:pointer;">← MENU</button>
+    </div>
     <div id="duel-ov">
       <div class="da-bg"></div>
       <div class="dvs" id="dvs">VS</div>
@@ -282,6 +662,23 @@
     <div class="bs"><div class="bs-v" id="htp">50%</div><div class="bs-l">POSSESSION</div></div>
     <div class="bs"><div class="bs-v" id="hts">0</div><div class="bs-l">SHOTS</div></div>
   </div>
+
+  <!-- SUBSTITUTION PANEL -->
+  <div class="ht-sub-panel">
+    <div class="ht-sub-title">SUBSTITUTIONS <span id="ht-subs-left">3 remaining</span></div>
+    <div class="ht-sub-body">
+      <div class="ht-sub-col">
+        <div class="ht-sub-lbl">ON PITCH</div>
+        <div class="ht-sub-list" id="ht-pitch-list"></div>
+      </div>
+      <div class="ht-sub-arrow">⇄</div>
+      <div class="ht-sub-col">
+        <div class="ht-sub-lbl">BENCH</div>
+        <div class="ht-sub-list" id="ht-bench-list"></div>
+      </div>
+    </div>
+  </div>
+
   <button class="bkbtn" onclick="secondHalf()">SECOND HALF →</button>
 </div>
 
@@ -332,7 +729,190 @@
   <div class="sc-face" id="sc-face"></div>
 </div>
 
+<!-- MATCH MUSIC — 3 tracks, one plays randomly per match -->
+<audio id="matchMusic1" loop><source src="assets/audio/match1.mp3" type="audio/mpeg"></audio>
+<audio id="matchMusic2" loop><source src="assets/audio/match2.mp3" type="audio/mpeg"></audio>
+<audio id="matchMusic3" loop><source src="assets/audio/match3.mp3" type="audio/mpeg"></audio>
+
+
+<!-- LOADING SCREEN -->
+<div id="s-loading" class="screen">
+  <div class="loading-corner">
+    <div class="loading-runner" aria-hidden="true"></div>
+    <div class="loading-info">
+      <div class="loading-dots"><span></span><span></span><span></span></div>
+      <div class="loading-label">NOW LOADING</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ CAREER: CLUB SELECT ══════════════ -->
+<div id="s-career-clubs" class="screen">
+  <div class="cr-topbar">
+    <div>
+      <div class="cr-title">CAREER MODE</div>
+      <div class="cr-sub">SELECT YOUR CLUB</div>
+    </div>
+    <button class="back-btn" onclick="showSc('s-home')">← MENU</button>
+  </div>
+  <div class="cr-clubs-scroll" id="cr-clubs-list"></div>
+</div>
+
+<!-- ══════════════ CAREER: HUB ══════════════ -->
+<div id="s-career-hub" class="screen">
+  <!-- TOP BAR -->
+  <div class="cr-strip">
+    <button class="back-btn" onclick="showSc('s-home')" style="margin-right:10px;">← MENU</button>
+    <div class="cr-strip-emblem" id="cr-emblem">⚽</div>
+    <div class="cr-strip-info">
+      <div class="cr-strip-name" id="cr-clubname">Club</div>
+      <div class="cr-strip-meta" id="cr-divlbl">DIVISION 1</div>
+    </div>
+    <div class="cr-strip-right">
+      <div class="cr-strip-season" id="cr-season">SEASON 1</div>
+      <div class="cr-strip-md" id="cr-md">MATCHDAY 1 / 18</div>
+    </div>
+  </div>
+
+  <!-- ACTION BAR -->
+  <div class="cr-action-bar">
+    <button class="cr-action-btn cr-play" onclick="crPlay()">▶ PLAY MATCH</button>
+    <button class="cr-action-btn cr-sim" onclick="crSimNext()">⏩ SIMULATE</button>
+    <button class="cr-action-btn cr-simall" onclick="crSimAll()">⏭ SIM ALL</button>
+    <div class="cr-budget-display">
+      <div class="cr-budget-lbl">BUDGET</div>
+      <div class="cr-budget-val" id="cr-budget">$2.0M</div>
+    </div>
+  </div>
+
+  <!-- MAIN BODY -->
+  <div class="cr-hub-body">
+    <!-- LEFT: Table + Results -->
+    <div class="cr-col">
+      <div class="cr-panel" style="flex:2;min-height:0;">
+        <div class="cr-panel-hdr">LEAGUE TABLE <span id="cr-table-div"></span></div>
+        <div class="cr-panel-body" id="cr-table-body"></div>
+      </div>
+      <div class="cr-panel" style="flex:1;min-height:0;">
+        <div class="cr-panel-hdr">RECENT RESULTS</div>
+        <div class="cr-panel-body" id="cr-results-body"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Fixture + Position + Stats + Management -->
+    <div class="cr-col">
+      <div class="cr-panel" style="flex-shrink:0;">
+        <div class="cr-panel-hdr">NEXT FIXTURE <span id="cr-fix-md"></span></div>
+        <div id="cr-fixture-area"></div>
+        <div style="display:flex;gap:16px;padding:6px 12px 10px;align-items:flex-end;">
+          <div>
+            <div class="cr-stat-lbl">POSITION</div>
+            <div class="cr-position" id="cr-position">1ST</div>
+            <div class="cr-pts-line" id="cr-pts-line">0 PTS · GD 0</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cr-panel" style="flex:1;min-height:0;">
+        <div class="cr-panel-hdr">SEASON STATS</div>
+        <div class="cr-panel-body" id="cr-stats-body"></div>
+      </div>
+
+      <!-- MANAGEMENT TABS -->
+      <div class="cr-panel cr-mgmt-panel">
+        <div class="cr-panel-hdr">MANAGEMENT</div>
+        <div class="cr-mgmt-grid">
+          <button class="cr-mgmt-btn" onclick="crOpenSquad()">>
+            <span class="cr-mgmt-icon">👕</span>
+            <span class="cr-mgmt-lbl">SQUAD</span>
+          </button>
+          <button class="cr-mgmt-btn" onclick="alert('Transfer market coming soon!')">
+            <span class="cr-mgmt-icon">💸</span>
+            <span class="cr-mgmt-lbl">TRANSFERS</span>
+          </button>
+          <button class="cr-mgmt-btn" onclick="alert('Coach menu coming soon!')">
+            <span class="cr-mgmt-icon">📋</span>
+            <span class="cr-mgmt-lbl">COACH</span>
+          </button>
+          <button class="cr-mgmt-btn" onclick="alert('Formation editor coming soon!')">
+            <span class="cr-mgmt-icon">🗂</span>
+            <span class="cr-mgmt-lbl">TACTICS</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ CAREER: SQUAD MANAGEMENT ══════════════ -->
+<div id="s-career-squad" class="screen">
+  <div class="cr-squad-topbar">
+    <button class="back-btn" onclick="showSc('s-career-hub')">← HUB</button>
+    <div class="cr-squad-title">
+      <span id="csq-clubname">SQUAD</span>
+      <span class="cr-squad-subtitle" id="csq-subtitle">SEASON 1 · MD 1</span>
+    </div>
+    <button class="cr-save-btn" onclick="crSaveSquad()">💾 SAVE</button>
+  </div>
+
+  <div class="cr-squad-body">
+    <!-- LEFT: Formation pitch view -->
+    <div class="cr-squad-left">
+      <div class="cr-squad-formation-bar">
+        <span class="cr-fml">FORMATION</span>
+        <select id="csq-formation" class="cr-fsel" onchange="crSquadFormationChange()">
+          <option value="4-3-3">4-3-3</option>
+          <option value="4-4-2">4-4-2</option>
+          <option value="4-1-3-2">4-1-3-2</option>
+          <option value="3-5-2">3-5-2</option>
+        </select>
+      </div>
+      <div class="cr-pitch" id="csq-pitch">
+        <!-- slots rendered by JS -->
+      </div>
+    </div>
+
+    <!-- RIGHT: Player list -->
+    <div class="cr-squad-right">
+      <div class="cr-squad-tabs">
+        <button class="cr-stab active" onclick="crSquadTab('starters')">STARTERS</button>
+        <button class="cr-stab" onclick="crSquadTab('bench')">BENCH</button>
+        <button class="cr-stab" onclick="crSquadTab('all')">ALL</button>
+      </div>
+      <div class="cr-squad-list" id="csq-player-list">
+        <!-- players rendered by JS -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ CAREER: MATCH RESULT ══════════════ -->
+<div id="s-career-result" class="screen">
+  <div class="cr-res-bg"></div>
+  <div class="cr-res-content">
+    <div class="cr-res-md" id="cr-res-md">MATCHDAY 1 · SEASON 1</div>
+    <div class="cr-res-box" id="cr-res-box">
+      <div class="cr-res-team" id="cr-res-home">Home</div>
+      <div class="cr-res-score" id="cr-res-score">0–0</div>
+      <div class="cr-res-team" id="cr-res-away">Away</div>
+    </div>
+    <div class="cr-res-outcome" id="cr-res-outcome">DRAW</div>
+    <div class="cr-res-detail" id="cr-res-detail"></div>
+    <button class="cr-continue-btn" onclick="crCloseResult()">CONTINUE</button>
+  </div>
+</div>
+
+<!-- ══════════════ CAREER: SEASON END ══════════════ -->
+<div id="s-career-season" class="screen">
+  <div class="cr-res-bg"></div>
+  <div class="cr-res-content">
+    <div class="cr-se-title" id="cr-se-title">SEASON COMPLETE</div>
+    <div class="cr-se-sub" id="cr-se-sub"></div>
+    <div class="cr-panel-body" id="cr-season-body" style="max-height:50vh;overflow-y:auto;"></div>
+  </div>
+</div>
+
 </div><!-- /viewport -->
-<script src="game.js"></script>
+<script src="game.js?v=3" defer></script>
 </body>
 </html>
